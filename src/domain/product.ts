@@ -15,7 +15,10 @@ export type CreateProductParams = {
 };
 
 export class ProductError extends Error {
-  constructor(public field: string, message: string) {
+  constructor(
+    public field: string,
+    message: string,
+  ) {
     super(message);
     this.name = 'ProductError';
   }
@@ -32,6 +35,12 @@ const validateProduct = (params: CreateProductParams): void => {
   ) {
     throw new ProductError('name', 'Product name must be a non-empty string.');
   }
+  if (params.name.length > 100) {
+    throw new ProductError(
+      'name',
+      'Product name must not exceed 100 characters.',
+    );
+  }
   if (
     typeof params.pricePence !== 'number' ||
     params.pricePence < 0 ||
@@ -39,7 +48,7 @@ const validateProduct = (params: CreateProductParams): void => {
   ) {
     throw new ProductError(
       'pricePence',
-      'Product pricePence must be a non-negative integer.'
+      'Product pricePence must be a non-negative integer.',
     );
   }
   if (
@@ -49,7 +58,7 @@ const validateProduct = (params: CreateProductParams): void => {
   ) {
     throw new ProductError(
       'description',
-      'Product description must be a non-empty string.'
+      'Product description must be a non-empty string.',
     );
   }
   if (
@@ -58,7 +67,7 @@ const validateProduct = (params: CreateProductParams): void => {
   ) {
     throw new ProductError(
       'updatedAt',
-      'updatedAt must be a valid Date object.'
+      'updatedAt must be a valid Date object.',
     );
   }
 };
