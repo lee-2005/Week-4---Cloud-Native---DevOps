@@ -10,7 +10,9 @@ try {
     updatedAt: new Date('2026-01-01T00:00:00.000Z'),
   });
 
-  console.log('Created Product with a ' + product.name.length + '-character name:');
+  console.log(
+    'Created Product with a ' + product.name.length + '-character name:',
+  );
   console.log(product);
 } catch (error: unknown) {
   if (error instanceof ProductError && error.field === 'name') {

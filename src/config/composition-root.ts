@@ -7,7 +7,7 @@ import { CosmosProductRepo } from '../infra/cosmos-product-repo';
 // Week 4 demonstration target: replace these values with your provisioned
 // Cosmos account endpoint, database and container names. The container uses /id.
 const COSMOS_OPTIONS = {
-  endpoint: 'https://shopping-dev-ab47-cosmos-uksouth.documents.azure.com:443/',
+  endpoint: 'https://week4-lab-lee-cosmos.documents.azure.com:443/',
   databaseId: 'catalogue-db',
   containerId: 'products',
 };
@@ -25,7 +25,9 @@ export const getProductRepo = (): ProductRepo => {
   if (!cachedProductRepo) {
     const key = process.env.COSMOS_KEY;
     if (!key || key.trim() === '') {
-      throw new Error('COSMOS_KEY must be set to a non-empty Cosmos DB account key.');
+      throw new Error(
+        'COSMOS_KEY must be set to a non-empty Cosmos DB account key.',
+      );
     }
 
     cachedProductRepo = new CosmosProductRepo({ ...COSMOS_OPTIONS, key });
